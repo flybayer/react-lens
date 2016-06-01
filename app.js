@@ -6,7 +6,8 @@ const Image = (props) => {
     border: '1px black solid',
     borderRadius: 15,
     margin: 10,
-    height: '75vh'
+    maxHeight: '75vh',
+    maxWidth: '94%'
   };
   return (
     <img
