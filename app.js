@@ -33,7 +33,7 @@ const CategorySelector = React.createClass({
         value={this.state.value}
         onChange={this.handleChange}
       >
-        <option value='all'>all</option>
+        <option value='random'>random</option>
         <option value='buildings'>buildings</option>
         <option value='food'>food</option>
         <option value='nature'>nature</option>
@@ -47,7 +47,7 @@ const CategorySelector = React.createClass({
 
 const App = React.createClass({
   getInitialState() {
-    return {category: 'all'};
+    return {category: 'random'};
   },
   handleCategoryChange(category) {
     this.setState({category: category})
@@ -55,7 +55,7 @@ const App = React.createClass({
   render() {
     let url = this.props.imageUrlBase;
 
-    if (this.state.category == 'all') {
+    if (this.state.category == 'random') {
       url += 'random';
     } else {
       url += 'category/' + this.state.category;
