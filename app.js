@@ -1,13 +1,12 @@
 //Docs at https://source.unsplash.com/
 const imageUrlBase = 'https://source.unsplash.com/';
-const imageQtyConstraints = { min: 1, max: 6 };
 
 const Image = (props) => {
   const style = {
     border: '1px black solid',
-    borderRadius: 10,
+    borderRadius: 15,
     margin: 10,
-    width: '50vh'
+    height: '75vh'
   };
   return (
     <img
@@ -26,11 +25,12 @@ const CategorySelector = React.createClass({
     this.props.onChange(event.target.value);
   },
   render() {
+    const { initialValue, onChange, ...other } = this.props;
     return (
       <select
+        {...other}
         value={this.state.value}
         onChange={this.handleChange}
-        style={this.props.style}
       >
         <option value='all'>all</option>
         <option value='buildings'>buildings</option>
@@ -52,26 +52,12 @@ const App = React.createClass({
     this.setState({category: category})
   },
   render() {
-    const images = [];
-    const max = this.props.imageQtyConstraints.max;
-    const min = this.props.imageQtyConstraints.min;
-    const imageQty = Math.floor(Math.random() * (max + 1 - min) + min);
     let url = this.props.imageUrlBase;
 
     if (this.state.category == 'all') {
       url += 'random';
     } else {
       url += 'category/' + this.state.category;
-    }
-
-    for (let i = 0; i < imageQty; i++) {
-      images.push(
-        <Image
-          url={url}
-          key={i}
-          category={this.state.category}
-        />
-      );
     }
 
     const sectionStyle = {
@@ -90,7 +76,9 @@ const App = React.createClass({
           onChange={this.handleCategoryChange}
           style={selectorStyle}
         />
-        {images}
+        <Image
+          url={url}
+        />
       </section>
     );
   }
@@ -99,7 +87,6 @@ const App = React.createClass({
 ReactDOM.render(
   <App
     imageUrlBase={imageUrlBase}
-    imageQtyConstraints={imageQtyConstraints}
   />,
   document.getElementById('main')
 );
